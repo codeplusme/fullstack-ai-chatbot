@@ -2,14 +2,13 @@ import os
 from fastapi import APIRouter, FastAPI, WebSocket, WebSocketDisconnect, Request, Depends, HTTPException
 import uuid
 from ..socket.connection import ConnectionManager
-from ..socket.utils import get_token
+
 import time
-from ..redis.producer import Producer
-from ..redis.config import Redis
-from ..schema.chat import Chat
+from server.src.redis.config import Redis
+from server.src.schema.chat import Chat
 from rejson import Path
-from ..redis.stream import StreamConsumer
-from ..redis.cache import Cache
+from server.src.redis.stream import StreamConsumer
+from server.src.redis.cache import Cache
 
 chat = APIRouter()
 manager = ConnectionManager()
@@ -70,11 +69,13 @@ async def refresh_token(request: Request, token: str):
 # @route   Websocket /chat
 # @desc    Socket for chat bot
 # @access  Public
-
+from ..socket.utils import get_token
 @chat.websocket("/chat")
 async def websocket_endpoint(websocket: WebSocket, token: str = Depends(get_token)):
     await manager.connect(websocket)
     redis_client = await redis.create_connection()
+    from server.src.redis.producer import Producer
+
     producer = Producer(redis_client)
     json_client = redis.create_rejson_connection()
     consumer = StreamConsumer(redis_client)

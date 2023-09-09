@@ -1,14 +1,16 @@
 from fastapi import WebSocket, status, Query
 from typing import Optional
-from ..redis.config import Redis
 
-redis = Redis()
 
+Redis = None
 
 async def get_token(
     websocket: WebSocket,
     token: Optional[str] = Query(None),
 ):
+    from ..redis.config import Redis
+    global Redis
+    redis = Redis()
 
     if token is None or token == "":
         await websocket.close(code=status.WS_1008_POLICY_VIOLATION)

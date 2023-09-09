@@ -65,9 +65,11 @@ Redis is an in-memory key-value store that enables super-fast fetching and stori
 
 ### Web Sockets and the Chat API
 
-To send messages between the client and server in real-time, we need to open a socket connection. This is because an HTTP connection will not be sufficient to ensure real-time bi-directional communication between the client and the server.
+To send messages between the client and server in real-time, we need to open a socket connection. This is because an HTTP connection will not be sufficient to ensure real-time bi-directional c
+ommunication between the client and the server.
 
-We will be using FastAPI for the chat server, as it provides a fast and modern Python server for our use. [Check out the FastAPI documentation](https://fastapi.tiangolo.com/advanced/websockets/?h=web)) to learn more about WebSockets.
+We will be using FastAPI for the chat server, as it provides a fast and modern Python server for our use.
+[Check out the FastAPI documentation](https://fastapi.tiangolo.com/advanced/websockets/?h=web)) to learn more about WebSockets.
 
 Follow the full series here: https://blog.stephensanwo.dev/series/build-ai-chatbot
 

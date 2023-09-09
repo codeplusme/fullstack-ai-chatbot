@@ -1,6 +1,7 @@
 import os
+
+import redis
 from dotenv import load_dotenv
-import aioredis
 from rejson import Client
 
 
@@ -18,7 +19,7 @@ class Redis():
         self.REDIS_PORT = os.environ['REDIS_PORT']
 
     async def create_connection(self):
-        self.connection = aioredis.from_url(
+        self.connection = redis.from_url(
             self.connection_url, db=0)
 
         return self.connection
